@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.3.0">
+  <zoom_level>12</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>456</x>
+      <y>276</y>
+      <w>120</w>
+      <h>36</h>
+    </coordinates>
+    <panel_attributes>主页</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>504</x>
+      <y>300</y>
+      <w>84</w>
+      <h>132</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=1
+m2=1
+has v</panel_attributes>
+    <additional_attributes>10.0;90.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>468</x>
+      <y>540</y>
+      <w>120</w>
+      <h>108</h>
+    </coordinates>
+    <panel_attributes>任务缩略
+--
+任务内容
+任务时间
+任务奖励</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>456</x>
+      <y>408</y>
+      <w>120</w>
+      <h>36</h>
+    </coordinates>
+    <panel_attributes>主页</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>516</x>
+      <y>432</y>
+      <w>84</w>
+      <h>132</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=0..1
+m2=1
+has v</panel_attributes>
+    <additional_attributes>10.0;90.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>468</x>
+      <y>768</y>
+      <w>120</w>
+      <h>156</h>
+    </coordinates>
+    <panel_attributes>任务详细
+--
+任务内容
+任务时间
+
+完成情况
+任务奖励
+发布者信息
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>516</x>
+      <y>636</y>
+      <w>84</w>
+      <h>156</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=1
+m2=1
+has v</panel_attributes>
+    <additional_attributes>10.0;110.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>468</x>
+      <y>48</y>
+      <w>120</w>
+      <h>108</h>
+    </coordinates>
+    <panel_attributes>用户
+--
+id
+余额
+学校
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>504</x>
+      <y>144</y>
+      <w>84</w>
+      <h>156</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=1
+m2=1
+has &gt;</panel_attributes>
+    <additional_attributes>10.0;110.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>228</x>
+      <y>48</y>
+      <w>120</w>
+      <h>108</h>
+    </coordinates>
+    <panel_attributes>接收任务
+--
+时间
+完成情况
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>336</x>
+      <y>72</y>
+      <w>156</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=0..1
+m2=1
+has ^</panel_attributes>
+    <additional_attributes>10.0;20.0;110.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>216</x>
+      <y>780</y>
+      <w>120</w>
+      <h>108</h>
+    </coordinates>
+    <panel_attributes>发布人
+--
+id
+余额
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>264</x>
+      <y>684</y>
+      <w>84</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=0..1
+m2=1
+has v</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;80.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>216</x>
+      <y>588</y>
+      <w>120</w>
+      <h>108</h>
+    </coordinates>
+    <panel_attributes>发布任务
+--
+组织
+余额
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>132</x>
+      <y>84</y>
+      <w>120</w>
+      <h>612</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=1
+m2=1
+equal</panel_attributes>
+    <additional_attributes>70.0;480.0;10.0;480.0;10.0;10.0;80.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>324</x>
+      <y>636</y>
+      <w>168</w>
+      <h>228</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=1
+m2=1
+has v</panel_attributes>
+    <additional_attributes>120.0;160.0;70.0;160.0;70.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>276</x>
+      <y>144</y>
+      <w>240</w>
+      <h>744</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=1
+m2=1
+has v</panel_attributes>
+    <additional_attributes>180.0;590.0;70.0;590.0;70.0;200.0;10.0;200.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>576</x>
+      <y>84</y>
+      <w>168</w>
+      <h>804</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=1
+m2=0..1
+has ^</panel_attributes>
+    <additional_attributes>10.0;640.0;80.0;640.0;90.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>276</x>
+      <y>876</y>
+      <w>216</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=1
+m2=0..1
+has v</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;30.0;160.0;30.0</additional_attributes>
+  </element>
+</diagram>
