@@ -13,9 +13,11 @@
 1. 安装包与安装部署说明
     - [前端部署说明](./安装包与安装部署说明/前端部署说明.md)
     - [后端部署说明](./安装包与安装部署说明/后端部署说明.md)
-2. [用户手册](./用户手册.pdf)
-3. [所有源代码](https://github.com/TeamWeGo/source_code)
-4. [软件需求规格说明书(SRS)](https://teamwego.github.io/dashboard/06-requirements.html)
-5. [软件设计文档(SDS)](./软件开发文档.md)
+2. [用户手册](./使用说明.pdf)
+3. 所有源代码
+    - [前端源代码](https://github.com/whatsup-sysu/Frontend)
+    - [后端源代码](https://github.com/whatsup-sysu/Backend)
+4. [软件需求规格说明书(SRS)](./软件需求规格说明书SRS.md)
+5. [软件设计文档(SDS)](./软件设计文档SDS.md)
 6. [小组分工与贡献率说明](./小组分工与贡献率说明.md)
 
