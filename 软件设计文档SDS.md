@@ -35,7 +35,151 @@
 	autoSave=true
 	/vscode-markdown-toc-config -->
 <!-- /vscode-markdown-toc -->
-# 软件设计文档
+# 软件设计文档（SD）
+
+整个设计文档分成两部分，为了方便检查把课程要求检查的技术选型理由、架构设计、模块划分、详细解释具体设计在源码中的体现 提前放在SD的最前几个小结。
+
+## 技术选型
+（这个我来写，你们写一下剩下的模块划分、详细解释吧，涉及到源码的我写不了  https://teamwego.github.io/SE/%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91%E6%96%87%E6%A1%A3.html）
+
+##  4. <a name='-1'></a>软件架构设计
+
+###  4.1. <a name='-1'></a>1. 软件架构的逻辑视图
+
+![](./assets/logic_arch.PNG)
+
+架构是前后端分离，前端发放服务器和后端交互服务器分离，其中用restful-like api进行交互。用mysql作为持久化层。
+
+前端的模式为mvc模式，其中使用到的外部支持库有编辑调查表的survey.js
+
+###  4.2. <a name='-1'></a>2. 软件架构的物理视图
+
+![](./assets/physics_arch.PNG)
+
+架构的物理层架构，分别分成了前端用户的浏览器访问端，从静态服务器中获取前端文件，用restful的方式从api服务器去进行交互，其中涉及到持久层的交互由与mysql dbrs完成。
+
+
+
+###  4.3. <a name='-1'></a>部署细节
+
+####  4.3.1. <a name='-1'></a>前端部署说明
+
+##### 使用cnpm安装的部分均可用npm安装替代。使用cnpm是因为cnpm使用国内镜像资源，下载安装依赖包较块。
+
+1. cnpm install -g vue-cli（前端依靠vue来实现，所以在运行项目之前，首先要安装vue）
+2. cd Frontend/whatsup（进入项目文件夹，在这里运行项目启动命令）
+3. cnpm install（一键安装项目运行所需要的所有依赖包）
+4. npm run dev（项目启动，浏览器自动跳出页面）
+
+##### npm以及cnpm安装方式
+
+cnpm解决了国内某些依赖包使用npm无法安装或者安装过慢的问题。在安装cnpm之前，首先要确保安装了npm。
+
+- npm安装
+
+1. 根据自己的操作系统，首先前往nodejs官网[下载nodejs](http://nodejs.cn/download/) 
+
+2. 然后点击安装，选择自己要安装的路径，此处我选择的是：**D:\Program Files\nodejs**，一路next，安装至完成。 
+
+3. **window+R**,输入**cmd**,打开命令提示符窗口，输入：`npm -v` 检测是否安装成功。
+
+4. 配置npm的全局模块的存放路径、cache的路径，此处我选择放在：**D:\Program Files\nodejs** 
+
+   输入如下命令：
+
+   ```
+   npm config set prefix "D:\Program Files\nodejs\node_global"
+   npm config set cache"D:\Program Files\nodejs\node_cache"
+   ```
+
+5. 在系统环境变量添加NODE_PATH,输入路径为： D:\Program Files\nodejs\node_global 
+   操作如下：我的电脑右击，打开属性->高级系统设置->环境变量->新建（系统变量下）->输入变量名NODE_PATH->变量值：输入上面路径，确定即可。 
+
+- cnpm安装
+
+1. 安装cnpm，输入以下命令：
+
+   ```
+   npm install -g cnpm --registry=https://registry.npm.taobao.org
+   ```
+
+2. 添加系统变量path的内容 。因为cnpm会被安装到D:\Program Files\nodejs\node_global下，而系统变量path并未包含该路径。在系统变量path下添加该路径即可正常使用cnpm。 
+
+3. 输入`cnpm-v`检测是否安装成功。
+
+####  4.3.2. <a name='-1'></a>前端文件目录
+
+- front-end
+  - build:  webpack文件，配置参数,打包的代码存放在这里，自动生成
+  - config:  vue项目的基本配置文件，自动生成
+  - node_modules: 存放项目中使用的各种npm包，cnpm/npm install后生成
+  - src: 项目源文件存放地址，包含前端页面，路径配置，静态资源等
+    - assets：存放前端页面用到的各种静态资源
+    - components：存放前端的各个vue页面
+    - router：存放前端页面的路径配置文件
+    - App.vue：VUE demo演示页面的启动组件
+    - main.js：该模块页面的初始化js
+  - static：项目静态资源目录
+  - test：测试文件，初始化测试都写在这里,可以删除
+  - .babelrc ：babel编译参数，vue开发需要babel编译
+  - .editorconfig：代码编辑环境配置文件
+  - .gitignore：设置git忽略文件
+  - .postcssrc.js：css配置文件,自动补齐浏览器css前缀
+  - index.html：主页，项目入口文件
+  - package.json：项目配置文件，描述项目信息和依赖
+  - README.md ：项目的说明文档，markdown 格式
+  - run.bat：Windows批处理文件，运行项目时生成
+
+####  4.3.3. <a name='-1'></a>后端源码目录以及说明
+##### 项目代码  
+https://github.com/whatsup-sysu/Backend
+
+##### 代码说明
+- src
+  - bin: 执行程序
+  - controllor:  控制器目录
+    - DBController_public.js:数据库接口
+    - userSystem_public.js:用户系统，登录注册等
+    - dutySystem_public.js:任务系统，发布接受等
+    - tradeSystem_public.js:交易系统，转账充值等
+    - surveySystem_public.js:问卷调查相关
+    - imageSystem_public.js:图片资源上传下载
+    - utils_public:公共模块
+    - validator.js:正则校验
+  - database: 数据库管理
+    - Config：数据表及配置信息
+    - DataBaseMySQL：数据库连接管理
+  - routes：路由分级处理
+    - users.js 
+    - dities.js
+    - photo.js
+    - survey.js
+    - trades.js
+    - survey.js
+  - sessions：保存后端与前端的会话状态
+  - upload：保存用户上传的资源信息
+  - app.js ：express程序执行入口
+  - package.json：项目配置文件，描述项目信息和依赖
+
+
+## 模块划分
+（我真的不知道怎么写了，我猜需要结合文件目录去解释每个模块分别在哪）
+
+### client端
+
+### server端
+
+## 详细解释具体设计在源码中的体现
+（structure programing -- 结构化编程（什么模式都没用））
+（OOP --如果用了类）
+（Aspect-oriented programing 对于功能的层次划分非常明显 mvc，mvvm可以算）
+（service oriented arch 服务为主，应该和装饰器模式一样，api为主，通过装饰器可以同一个api多用）
+（design pattern 设计模式，各种模式 工厂模式之类）
+（从上面觉得可能涉及到的设计里面选几种出来，贴上源代码进行分析，糊弄的成分更大，写个两三个，因为这部分涉及到可扩展可维护分数，一看就知道只看你用的设计是不是很高大上，不会详细去看源代码的）
+### client端
+
+### server端
+
 
 ##  1. <a name='UI'></a>UI设计文档
 
@@ -170,124 +314,6 @@ axios.post('/restaurant', form, {
 ####  3.2.4. <a name='api-1'></a>2. 后端api文档
     [后端api文档](https://documenter.getpostman.com/view/7355822/S1TZzbyN?version=latest)
 
-##  4. <a name='-1'></a>软件架构设计
-
-###  4.1. <a name='-1'></a>1. 软件架构的逻辑视图
-
-![](./assets/logic_arch.PNG)
-
-架构是前后端分离，前端发放服务器和后端交互服务器分离，其中用restful-like api进行交互。用mysql作为持久化层。
-
-前端的模式为mvc模式，其中使用到的外部支持库有编辑调查表的survey.js
-
-###  4.2. <a name='-1'></a>2. 软件架构的物理视图
-
-![](./assets/physics_arch.PNG)
-
-架构的物理层架构，分别分成了前端用户的浏览器访问端，从静态服务器中获取前端文件，用restful的方式从api服务器去进行交互，其中涉及到持久层的交互由与mysql dbrs完成。
-
-
-
-###  4.3. <a name='-1'></a>部署细节
-
-####  4.3.1. <a name='-1'></a>前端部署说明
-
-##### 使用cnpm安装的部分均可用npm安装替代。使用cnpm是因为cnpm使用国内镜像资源，下载安装依赖包较块。
-
-1. cnpm install -g vue-cli（前端依靠vue来实现，所以在运行项目之前，首先要安装vue）
-2. cd Frontend/whatsup（进入项目文件夹，在这里运行项目启动命令）
-3. cnpm install（一键安装项目运行所需要的所有依赖包）
-4. npm run dev（项目启动，浏览器自动跳出页面）
-
-##### npm以及cnpm安装方式
-
-cnpm解决了国内某些依赖包使用npm无法安装或者安装过慢的问题。在安装cnpm之前，首先要确保安装了npm。
-
-- npm安装
-
-1. 根据自己的操作系统，首先前往nodejs官网[下载nodejs](http://nodejs.cn/download/) 
-
-2. 然后点击安装，选择自己要安装的路径，此处我选择的是：**D:\Program Files\nodejs**，一路next，安装至完成。 
-
-3. **window+R**,输入**cmd**,打开命令提示符窗口，输入：`npm -v` 检测是否安装成功。
-
-4. 配置npm的全局模块的存放路径、cache的路径，此处我选择放在：**D:\Program Files\nodejs** 
-
-   输入如下命令：
-
-   ```
-   npm config set prefix "D:\Program Files\nodejs\node_global"
-   npm config set cache"D:\Program Files\nodejs\node_cache"
-   ```
-
-5. 在系统环境变量添加NODE_PATH,输入路径为： D:\Program Files\nodejs\node_global 
-   操作如下：我的电脑右击，打开属性->高级系统设置->环境变量->新建（系统变量下）->输入变量名NODE_PATH->变量值：输入上面路径，确定即可。 
-
-- cnpm安装
-
-1. 安装cnpm，输入以下命令：
-
-   ```
-   npm install -g cnpm --registry=https://registry.npm.taobao.org
-   ```
-
-2. 添加系统变量path的内容 。因为cnpm会被安装到D:\Program Files\nodejs\node_global下，而系统变量path并未包含该路径。在系统变量path下添加该路径即可正常使用cnpm。 
-
-3. 输入`cnpm-v`检测是否安装成功。
-
-####  4.3.2. <a name='-1'></a>前端文件目录
-
-- front-end
-  - build:  webpack文件，配置参数,打包的代码存放在这里，自动生成
-  - config:  vue项目的基本配置文件，自动生成
-  - node_modules: 存放项目中使用的各种npm包，cnpm/npm install后生成
-  - src: 项目源文件存放地址，包含前端页面，路径配置，静态资源等
-    - assets：存放前端页面用到的各种静态资源
-    - components：存放前端的各个vue页面
-    - router：存放前端页面的路径配置文件
-    - App.vue：VUE demo演示页面的启动组件
-    - main.js：该模块页面的初始化js
-  - static：项目静态资源目录
-  - test：测试文件，初始化测试都写在这里,可以删除
-  - .babelrc ：babel编译参数，vue开发需要babel编译
-  - .editorconfig：代码编辑环境配置文件
-  - .gitignore：设置git忽略文件
-  - .postcssrc.js：css配置文件,自动补齐浏览器css前缀
-  - index.html：主页，项目入口文件
-  - package.json：项目配置文件，描述项目信息和依赖
-  - README.md ：项目的说明文档，markdown 格式
-  - run.bat：Windows批处理文件，运行项目时生成
-
-####  4.3.3. <a name='-1'></a>后端源码目录以及说明
-##### 项目代码  
-https://github.com/whatsup-sysu/Backend
-
-##### 代码说明
-- src
-  - bin: 执行程序
-  - controllor:  控制器目录
-    - DBController_public.js:数据库接口
-    - userSystem_public.js:用户系统，登录注册等
-    - dutySystem_public.js:任务系统，发布接受等
-    - tradeSystem_public.js:交易系统，转账充值等
-    - surveySystem_public.js:问卷调查相关
-    - imageSystem_public.js:图片资源上传下载
-    - utils_public:公共模块
-    - validator.js:正则校验
-  - database: 数据库管理
-    - Config：数据表及配置信息
-    - DataBaseMySQL：数据库连接管理
-  - routes：路由分级处理
-    - users.js 
-    - dities.js
-    - photo.js
-    - survey.js
-    - trades.js
-    - survey.js
-  - sessions：保存后端与前端的会话状态
-  - upload：保存用户上传的资源信息
-  - app.js ：express程序执行入口
-  - package.json：项目配置文件，描述项目信息和依赖
 
 ###### 测试文档  
 附文件《后端API测试报告》
