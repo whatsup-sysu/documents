@@ -317,7 +317,13 @@ created: function() {
 
 
 ###  4.2. <a name='server-1'></a>server端
+后端架构设计技术：
+* Service Oriented Architecture  
+首先后端是按照面向服务的体系结构开发的，它按照一个基于RESTFUL风格标准定义的API接口文档。服务是最核心的抽象手段，业务被划分为一系列粗粒度的业务服务和业务流程。  
+架构开发思想主要体现在[API文档](https://github.com/whatsup-sysu/documents/blob/master/%E6%BA%90%E4%BB%A3%E7%A0%81%E7%9B%AE%E5%BD%95%E5%8F%8A%E8%AF%B4%E6%98%8E/%E5%90%8E%E7%AB%AFAPI%E6%96%87%E6%A1%A3.html)，之后的接口发开都是基于接口文档的标准进行。
 
+* Object-Oriented Programming  
+后端在路由分级后按照业务类型抽象了几个处理不同类型业务的对象类型，如userSystem、dutySystem、tradeSystem等等。这些对象封装了相关的业务逻辑方法。抽象的对象列表相关代码主要在[控制器目录](https://github.com/whatsup-sysu/Backend/tree/master/src/controller)中。
 
 ##  5. <a name='UI'></a>UI设计文档
 
