@@ -38,9 +38,9 @@
 	* 8.2. [2.登陆注册](#-1)
 
 <!-- vscode-markdown-toc-config
-	numbering=true
-	autoSave=true
-	/vscode-markdown-toc-config -->
+​	numbering=true
+​	autoSave=true
+​	/vscode-markdown-toc-config -->
 <!-- /vscode-markdown-toc -->
 # 软件设计文档（SD）
 
@@ -53,7 +53,19 @@
 ### client端
 可选的技术选型及其选择理由分析
 - 前端框架
+
   - Vue
+
+    Vue是一套用于构建用户界面的渐进式框架，可以自底向上逐层应用。Vue容易上手，便于与第三方库整合（例如element-ui），另外Vue是中国开发的前端框架，官方文档全中文，便于学习使用，另外开发人员之前有学习过Vue，所以采用Vue来搭建前端是最合理的选择。
+
+  - element-ui
+
+    element-ui是一个与Vue兼容的桌面端组件库，该组件库中包含众多网站开发中常用的控件，如下拉菜单，导航栏，进度条等等，官网上每个例子后面都有实现代码，方便易用，而且这些控件UI十分优美，可以极大地提高用户体验。
+
+  - jQuery
+
+    jQuery的重要性不言而喻，控制页面组建的最方便的js包。在前端开发的过程中，将jQuery嵌入到了Vue中，加速了前端页面的开发。
+
 ### server端
 可选的技术选型及其选择理由分析
 
@@ -206,6 +218,21 @@ https://github.com/whatsup-sysu/Backend
 
 ###  3.1. <a name='client'></a>client端
 
+- 前端的划分主要体现在页面的划分上。前端根目录的src文件夹是需要自己编写的部分，里面记录了页面文件以及路由配置。为了便于管理，路由配置全部放到了index.js文件中。前端页面全部放到components文件下。前端的分工主要体现在页面的分工上，不用的人完成不用部分的页面。前端页面总共分为8个模块，分别为
+
+  - 创建任务（CreateTask）
+  - 个人信息（Information）
+  - 登录（Login）
+  - 注册（Register）
+  - 首页（MainPage）
+  - 问卷系统（Survey）
+  - 任务详细信息（包含接受任务流程）(TaskDetail)
+  - 图片管理（Photo）
+
+  这个7个模块用到的vue页面，js，css以及静态资源等全部独立地放到不同的文件夹中。
+
+
+
 ###  3.2. <a name='server'></a>server端
 
 ##  4. <a name='-1'></a>详细解释具体设计在源码中的体现
@@ -216,6 +243,78 @@ https://github.com/whatsup-sysu/Backend
 （design pattern 设计模式，各种模式 工厂模式之类）
 （从上面觉得可能涉及到的设计里面选几种出来，贴上源代码进行分析，糊弄的成分更大，写个两三个，因为这部分涉及到可扩展可维护分数，一看就知道只看你用的设计是不是很高大上，不会详细去看源代码的）
 ###  4.1. <a name='client-1'></a>client端
+
+- 结构化编程：为了便于前端的分工，将前端需要实现的页面以及业务流程进行了划分，大致分为了8个模块，分别为创建任务（CreateTask），个人信息（Information），登录（Login），注册（Register），首页（MainPage），问卷系统（Survey），任务详细信息（包含接受任务流程），(TaskDetail)，图片管理（Photo）。划分好模块之后编程变得更加容易。
+
+  前端模块源码链接：https://github.com/whatsup-sysu/Frontend/tree/master/whatsup/src/components
+
+- 回调函数，使用回调函数异步地向后端发送请求，支持了并发访问，优化用户体验。
+
+```
+//例子：首页在创建的时候需要向后端清楚数据，将目前正在发布中的任务数据保存到前端寄存器，便于任务的显示
+//以及对任务的各种操作。请求数据采用异步请求使用回调函数来进行实现。
+created: function() {
+    this.uid = this.$route.query.uid
+    if(this.uid==null){
+      this.uid=$("#username").text();
+    }
+    if(this.id==null){
+      this.uid = this.$cookies.get('id')
+    }
+    //如果当前没有任务数据的话就异步地向后端请求数据
+    if(this.nowduty==null){
+      var _self = this;
+      //采用ajax的方式异步请求
+      $.ajax({
+        type: 'GET',
+        url: '/api/duties/screen?pageNumber=1&countPerPage=7&sortType=time&sortOrder=ascend',
+        dataType: 'json',
+        timeout: 3000,
+        success: function(result, xhr) {
+        
+          //成功请求数据之后的回调函数，解析并保存得到的数据
+          console.log(result)
+          _self.nowduty = result['content']
+          _self.nowpage = 1
+          _self.nowdutynum = result['count']
+          if(_self.nowdutynum<7){
+            for(var i=_self.nowdutynum;i<7;i++){
+              _self.nowduty.push(0);
+            }
+          }
+          //根据得到的数据动态修改页面内容
+          for(var i=0;i<7;i++){
+            if(_self.nowduty[i]!=0){
+              var content="#dcontent"+(i+1).toString();
+              $(content).text(_self.nowduty[i].dintroduction);
+              var type = "#dtype"+(i+1).toString();
+              $(type).text(_self.nowduty[i].dtype);
+              var title = "#dtitle"+(i+1).toString();
+              $(title).text(_self.nowduty[i].dtitle);
+              var sponsor = "#dsponsor"+(i+1).toString();
+              $(sponsor).text(_self.nowduty[i].dsponsor);
+              var modifyTime = "#dmodifyTime"+(i+1).toString();
+              $(modifyTime).text(_self.nowduty[i].dmodifyTime);
+              var curaccepters = "#dcuraccepters"+(i+1).toString();
+              $(curaccepters).text(_self.nowduty[i].curaccepters);
+            } else {
+              //alert("hidden");
+              var id="#u128-"+(i+1).toString();
+              $(id).css("visibility","hidden");
+            }
+          }
+        },
+        //请求数据失败之后的回调函数，提示出错，输出错误信息。
+        error: function(result, xhr) {
+          console.log(result)
+          alert('服务器连接错误: ' + xhr)
+        }
+      })
+    }
+  }
+```
+
+
 
 ###  4.2. <a name='server-1'></a>server端
 
@@ -247,11 +346,11 @@ https://github.com/whatsup-sysu/Backend
 ![](https://raw.githubusercontent.com/rookies-sysu/Dashboard/master/imgs/UI/v0.1/version1.png)
 
 1. 分类浏览界面。
-  分类浏览界面由卡片的形式展现，每个卡片对应一个类别。这样用户可以比较清楚的知道每个类别是干什么的，视觉上也不会显得太拥挤
+    分类浏览界面由卡片的形式展现，每个卡片对应一个类别。这样用户可以比较清楚的知道每个类别是干什么的，视觉上也不会显得太拥挤
 2. 菜品列表浏览
-  菜品列表浏览用列表卡片的形式呈现，购物车在右下角有一个小按钮可以随时查看购物车情况。
+    菜品列表浏览用列表卡片的形式呈现，购物车在右下角有一个小按钮可以随时查看购物车情况。
 3. 购物车查看
-  没有太多新颖的地方
+    没有太多新颖的地方
 
 ####  5.1.3. <a name='-1'></a>组件设计思路
 
