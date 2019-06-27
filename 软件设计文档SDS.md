@@ -1,5 +1,7 @@
 <!-- vscode-markdown-toc -->
 * 1. [技术选型](#)
+	* 1.1. [client端](#client)
+	* 1.2. [server端](#server)
 * 2. [软件架构设计](#-1)
 	* 2.1. [1. 软件架构的逻辑视图](#-1)
 	* 2.2. [2. 软件架构的物理视图](#-1)
@@ -8,39 +10,39 @@
 		* 2.3.2. [前端文件目录](#-1)
 		* 2.3.3. [后端源码目录以及说明](#-1)
 * 3. [模块划分](#-1)
-	* 3.1. [client端](#client)
-	* 3.2. [server端](#server)
+	* 3.1. [client端](#client-1)
+	* 3.2. [server端](#server-1)
 * 4. [详细解释具体设计在源码中的体现](#-1)
 	* 4.1. [client端](#client-1)
 	* 4.2. [server端](#server-1)
 * 5. [UI设计文档](#UI)
-	* 5.1. [UI Design](#UIDesign)
-		* 5.1.1. [Use case 1](#Usecase1)
-		* 5.1.2. [Version 0.1 (Week 3 ~ Week 6)](#Version0.1Week3Week6)
-		* 5.1.3. [组件设计思路](#-1)
-		* 5.1.4. [自评](#-1)
-	* 5.2. [Version 0.2 (Week 7 ~ Now)](#Version0.2Week7Now)
-		* 5.2.1. [总览](#-1)
-* 6. [数据库模式设计](#-1)
-* 7. [API设计](#API)
-	* 7.1. [用户注册](#-1)
-		* 7.1.1. [参数说明](#-1)
-		* 7.1.2. [返回值](#-1)
-		* 7.1.3. [示例](#-1)
-	* 7.2. [用户登录](#-1)
-		* 7.2.1. [参数说明](#-1)
-		* 7.2.2. [返回值](#-1)
-		* 7.2.3. [1. 前端api文档](#api)
-		* 7.2.4. [2. 后端api文档](#api-1)
-* 8. [用例设计](#-1)
-		* 8.1. [用例文本与活动图](#-1)
-	* 8.1. [1.发布和接收任务](#-1)
-	* 8.2. [2.登陆注册](#-1)
+* 6. [Use case 1](#Usecase1)
+* 7. [Version 0.1 (Week 3 ~ Week 8)](#Version0.1Week3Week8)
+	* 7.1. [总览](#-1)
+	* 7.2. [组件设计思路](#-1)
+	* 7.3. [自评](#-1)
+* 8. [Version 0.2 (Week 8 ~ Now)](#Version0.2Week8Now)
+	* 8.1. [总览](#-1)
+* 9. [数据库模式设计](#-1)
+* 10. [API设计](#API)
+	* 10.1. [用户注册](#-1)
+		* 10.1.1. [参数说明](#-1)
+		* 10.1.2. [返回值](#-1)
+		* 10.1.3. [示例](#-1)
+	* 10.2. [用户登录](#-1)
+		* 10.2.1. [参数说明](#-1)
+		* 10.2.2. [返回值](#-1)
+		* 10.2.3. [1. 前端api文档](#api)
+		* 10.2.4. [2. 后端api文档](#api-1)
+* 11. [用例设计](#-1)
+		* 11.1. [用例文本与活动图](#-1)
+	* 11.1. [1.发布和接收任务](#-1)
+	* 11.2. [2.登陆注册](#-1)
 
 <!-- vscode-markdown-toc-config
-​	numbering=true
-​	autoSave=true
-​	/vscode-markdown-toc-config -->
+	numbering=true
+	autoSave=true
+	/vscode-markdown-toc-config -->
 <!-- /vscode-markdown-toc -->
 # 软件设计文档（SD）
 
@@ -48,7 +50,7 @@
 
 
 ##  1. <a name=''></a>技术选型
-### client端
+###  1.1. <a name='client'></a>client端
 可选的技术选型及其选择理由分析
 - 前端框架
 
@@ -64,7 +66,7 @@
 
     jQuery的重要性不言而喻，控制页面组建的最方便的js包。在前端开发的过程中，将jQuery嵌入到了Vue中，加速了前端页面的开发。
 
-### server端
+###  1.2. <a name='server'></a>server端
 可选的技术选型及其选择理由分析
 
 - 后端框架
@@ -214,7 +216,7 @@ https://github.com/whatsup-sysu/Backend
 ##  3. <a name='-1'></a>模块划分
 
 
-###  3.1. <a name='client'></a>client端
+###  3.1. <a name='client-1'></a>client端
 
 - 前端的划分主要体现在页面的划分上。前端根目录的src文件夹是需要自己编写的部分，里面记录了页面文件以及路由配置。为了便于管理，路由配置全部放到了index.js文件中。前端页面全部放到components文件下。前端的分工主要体现在页面的分工上，不用的人完成不用部分的页面。前端页面总共分为8个模块，分别为
 
@@ -231,7 +233,17 @@ https://github.com/whatsup-sysu/Backend
 
 
 
-###  3.2. <a name='server'></a>server端
+###  3.2. <a name='server-1'></a>server端
+
+- 后端的划分主要体现在了功能或者说是逻辑的划分上。后端将各个具体的功能模块进行充分的抽象和分层：routes用来控制路由的跳转，database抽象数据库的各项操作，controller则是二者之间的衔接模块，根据上层路由的请求调用底层的数据库方法。app.js位于最顶层，通过调用routes来统领全局。
+- routes和controller中主要包含如下一一对应的模块：
+  - 个人信息(users)
+  - 主页(index)
+  - 事务(duties)
+  - 问卷(survey)
+  - 交易(trades)
+  - 图片(photo)
+
 
 ##  4. <a name='-1'></a>详细解释具体设计在源码中的体现
 ###  4.1. <a name='client-1'></a>client端
@@ -309,19 +321,25 @@ created: function() {
 
 
 ###  4.2. <a name='server-1'></a>server端
+后端架构设计技术：
+* Service Oriented Architecture  
+首先后端是按照面向服务的体系结构开发的，它按照一个基于RESTFUL风格标准定义的API接口文档。服务是最核心的抽象手段，业务被划分为一系列粗粒度的业务服务和业务流程。  
+架构开发思想主要体现在[API文档](https://github.com/whatsup-sysu/documents/blob/master/%E6%BA%90%E4%BB%A3%E7%A0%81%E7%9B%AE%E5%BD%95%E5%8F%8A%E8%AF%B4%E6%98%8E/%E5%90%8E%E7%AB%AFAPI%E6%96%87%E6%A1%A3.html)，之后的接口发开都是基于接口文档的标准进行。
 
+* Object-Oriented Programming  
+后端在路由分级后按照业务类型抽象了几个处理不同类型业务的对象类型，如userSystem、dutySystem、tradeSystem等等。这些对象封装了相关的业务逻辑方法。抽象的对象列表相关代码主要在[控制器目录](https://github.com/whatsup-sysu/Backend/tree/master/src/controller)中。
 
 ##  5. <a name='UI'></a>UI设计文档
 # UI Design
 
-## Use case 1
+##  6. <a name='Usecase1'></a>Use case 1
 
 ![](assets/ui.png)
 ---
 
-## Version 0.1 (Week 3 ~ Week 8)
+##  7. <a name='Version0.1Week3Week8'></a>Version 0.1 (Week 3 ~ Week 8)
 
-### 总览
+###  7.1. <a name='-1'></a>总览
 
 第一版设计思路主要如下
 - 逻辑上按照现有常见的社交功能平台设计思路，对现有活动进行分类，并将热门活动在首页展示出来。每个对应有详情页面，可以选择加入活动等。能有用户登录注册功能，对每个用户，有用户详情页可以对其进行管理。这个的主要功能思路
@@ -351,21 +369,21 @@ created: function() {
   ![](assets/createActivity.png)
 
 
-### 组件设计思路
+###  7.2. <a name='-1'></a>组件设计思路
 
 1. 活动卡片。类别卡片采用占据一行排列，展示活动的
 2. 个人页面陈列，将次要的数据信息放到了和头像平齐的地方，而将重要的参与活动信息放到了大块的下方，这样能突出重点。
 3. 信息陈列上，主要信息会突出于底层。这里用了颜色或者边框阴影进行突出。每个部分有相应的大标题来指引
 
-### 自评
+###  7.3. <a name='-1'></a>自评
 
 1. 逻辑较为清晰，界面不太拥挤
 2. 导航栏的设计能让全部功能更好的结合在一起，而且这也符合element-ui的设计风格
 3. 设计语模块不太同一，个人页面和其他页面的风格不太一致，不是选择用卡片式展现
 
-## Version 0.2 (Week 8 ~ Now)
+##  8. <a name='Version0.2Week8Now'></a>Version 0.2 (Week 8 ~ Now)
 
-### 总览
+###  8.1. <a name='-1'></a>总览
 
 根据上一版本的思考之后，为了解决填写问卷的时候能增加用户需要的提醒，所以需要对活动发布的页面进行改进。同时为了让个人页面和活动详情页能在整体上风格更加的一致，所以将个人页面的布局从上下分割改成了左右分割。  
 1. 将原来发布活动的页面从简陋的固定题型发布改成了可以选择题型的形式，让这个页面中的功能更能适应比较多的活动需求  
@@ -376,7 +394,7 @@ created: function() {
 
 
 
-##  6. <a name='-1'></a>数据库模式设计
+##  9. <a name='-1'></a>数据库模式设计
 这里包含了系统基础框架所需的完整数据库设计。 
 
 
@@ -384,17 +402,17 @@ created: function() {
 
 我们并没有对于权限进行设计，而是直接把用户和发布人的功能进行不同的划分，能够调用的api不同，而不是相同的api所能执行的功能因为权限不同而产生不同的效果。
 
-##  7. <a name='API'></a>API设计
+##  10. <a name='API'></a>API设计
 
 采用了前后端分离的api设计，因为api太多所以只列了作为样例的几个。
 
-###  7.1. <a name='-1'></a>用户注册
+###  10.1. <a name='-1'></a>用户注册
 
 `POST /user`
 
 由于需要上传文件，要求使用`multipart/form-data`提交请求。
 
-####  7.1.1. <a name='-1'></a>参数说明
+####  10.1.1. <a name='-1'></a>参数说明
 
 | 参数名   | 数据类型               | 描述     | 必需 |
 | -------- | ---------------------- | -------- | ---- |
@@ -403,14 +421,14 @@ created: function() {
 | name     | string                 | 用户名   | 是   |
 | license(optional)  | file（docx、doc、pdf） | 组织证明 | 是   |
 
-####  7.1.2. <a name='-1'></a>返回值
+####  10.1.2. <a name='-1'></a>返回值
 
 | HTTP状态码 | 返回格式            | 描述       |
 | ---------- | ------------------- | ---------- |
 | 200        | NULL                | 成功       |
 | 400        | {message: 'reason'} | 错误的请求 |
 
-####  7.1.3. <a name='-1'></a>示例
+####  10.1.3. <a name='-1'></a>示例
 
 ```js
 const form = new FormData();
@@ -423,19 +441,19 @@ axios.post('/restaurant', form, {
 });
 ```
 
-###  7.2. <a name='-1'></a>用户登录
+###  10.2. <a name='-1'></a>用户登录
 
 `POST /customer/session`
 
 调用此API后，如果用户没有注册，则会自动注册并登录；如果用户已经注册，则完成登录。
 
-####  7.2.1. <a name='-1'></a>参数说明
+####  10.2.1. <a name='-1'></a>参数说明
 
 | 参数名 | 数据类型 | 描述         | 必须 |
 | ------ | -------- | ------------ | ---- |
 | code   | string   | 登录凭证 | 是   |
 
-####  7.2.2. <a name='-1'></a>返回值
+####  10.2.2. <a name='-1'></a>返回值
 
 | HTTP状态码 | 返回格式            | 描述       |
 | ---------- | ------------------- | ---------- |
@@ -443,10 +461,10 @@ axios.post('/restaurant', form, {
 | 400        | {message: 'reason'} | 错误的请求 |
 
 
-####  7.2.3. <a name='api'></a>1. 前端api文档
+####  10.2.3. <a name='api'></a>1. 前端api文档
     [前端api文档](https://documenter.getpostman.com/view/7355822/S1TVXyAV?version=latest#f651b449-dbaa-4758-bab2-cdf4b1acf71b)
 
-####  7.2.4. <a name='api-1'></a>2. 后端api文档
+####  10.2.4. <a name='api-1'></a>2. 后端api文档
     [后端api文档](https://documenter.getpostman.com/view/7355822/S1TZzbyN?version=latest)
 
 
@@ -455,15 +473,15 @@ axios.post('/restaurant', form, {
 
 
 
-##  8. <a name='-1'></a>用例设计
+##  11. <a name='-1'></a>用例设计
 
-####  8.1. <a name='-1'></a>用例文本与活动图
+####  11.1. <a name='-1'></a>用例文本与活动图
 
 总用例框图
 ![用例](./assets/usecase.PNG)
 
 一共分为两个用例，一个是发布和接受任务，一个是登陆和注册。
-###  8.1. <a name='-1'></a>1.发布和接收任务
+###  11.1. <a name='-1'></a>1.发布和接收任务
 BCE模式下的ssd如下
 
 ![](assets/sequence1.PNG)
@@ -473,7 +491,7 @@ BCE模式下的ssd如下
 
 ![](assets/state_sign.PNG)
 
-###  8.2. <a name='-1'></a>2.登陆注册
+###  11.2. <a name='-1'></a>2.登陆注册
 
 BCE模式下的ssd如下
 
