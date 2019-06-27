@@ -235,6 +235,16 @@ https://github.com/whatsup-sysu/Backend
 
 ###  3.2. <a name='server'></a>server端
 
+- 后端的划分主要体现在了功能或者说是逻辑的划分上。后端将各个具体的功能模块进行充分的抽象和分层：routes用来控制路由的跳转，database抽象数据库的各项操作，controller则是二者之间的衔接模块，根据上层路由的请求调用底层的数据库方法。app.js位于最顶层，通过调用routes来统领全局。
+- routes和controller中主要包含如下一一对应的模块：
+  - 个人信息(users)
+  - 主页(index)
+  - 事务(duties)
+  - 问卷(survey)
+  - 交易(trades)
+  - 图片(photo)
+
+
 ##  4. <a name='-1'></a>详细解释具体设计在源码中的体现
 （structure programing -- 结构化编程（什么模式都没用））
 （OOP --如果用了类）
