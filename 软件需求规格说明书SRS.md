@@ -107,9 +107,7 @@ A：我觉得如果有一些社团，组织来发布任务的话会更吸引我�
 
  ![咸鱼logo](./assets/xianyu.png)
 
-###  3.2. <a name='-1'></a>1.3.2. 产品概要
 
-根据调研结果得到我们前期产品的需求与功能，具体请见[团队作业主页](https://owl-movies-ticket-system.github.io/Dashboard/) 中 6. Re- quirement specification 需求规格说明
 
 
 ##  4. <a name='-1'></a>1.4. 需求规格说明
