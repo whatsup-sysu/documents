@@ -48,8 +48,6 @@
 
 
 ##  1. <a name=''></a>技术选型
-（这个我来写，你们写一下剩下的模块划分、详细解释吧，涉及到源码的我写不了  https://teamwego.github.io/SE/%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91%E6%96%87%E6%A1%A3.html）
-
 ### client端
 可选的技术选型及其选择理由分析
 - 前端框架
@@ -214,7 +212,7 @@ https://github.com/whatsup-sysu/Backend
 
 
 ##  3. <a name='-1'></a>模块划分
-（我真的不知道怎么写了，我猜需要结合文件目录去解释每个模块分别在哪）
+
 
 ###  3.1. <a name='client'></a>client端
 
@@ -236,12 +234,6 @@ https://github.com/whatsup-sysu/Backend
 ###  3.2. <a name='server'></a>server端
 
 ##  4. <a name='-1'></a>详细解释具体设计在源码中的体现
-（structure programing -- 结构化编程（什么模式都没用））
-（OOP --如果用了类）
-（Aspect-oriented programing 对于功能的层次划分非常明显 mvc，mvvm可以算）
-（service oriented arch 服务为主，应该和装饰器模式一样，api为主，通过装饰器可以同一个api多用）
-（design pattern 设计模式，各种模式 工厂模式之类）
-（从上面觉得可能涉及到的设计里面选几种出来，贴上源代码进行分析，糊弄的成分更大，写个两三个，因为这部分涉及到可扩展可维护分数，一看就知道只看你用的设计是不是很高大上，不会详细去看源代码的）
 ###  4.1. <a name='client-1'></a>client端
 
 - 结构化编程：为了便于前端的分工，将前端需要实现的页面以及业务流程进行了划分，大致分为了8个模块，分别为创建任务（CreateTask），个人信息（Information），登录（Login），注册（Register），首页（MainPage），问卷系统（Survey），任务详细信息（包含接受任务流程），(TaskDetail)，图片管理（Photo）。划分好模块之后编程变得更加容易。
